@@ -1,0 +1,16 @@
+{
+  "name": "pryectointegrdor-express-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tasklist.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon tasklist.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
