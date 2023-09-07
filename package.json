@@ -5,7 +5,10 @@
   "main": "tasklist.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon tasklist.js"
+    "start": "nodemon tasklist.js",
+    "router": "nodemon list-edit-router.js",
+    "router2": "nodemon list-view-router.js"
+
   },
   "author": "",
   "license": "ISC",

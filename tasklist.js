@@ -1,34 +1,22 @@
 const express= require ("express");
 const app = express();
 const port = 3000;
-
-
-const taskList = [
-    {
-        id:1,
-        taskName:"Go to the supermarket",
-        description: "buy: eggs, rice, oil",
-        state: true,
-    },
-    {
-        id:2,
-        taskName:"Study for the exam",
-        description: "History of the French revolution",
-        state: false,
-    },
-    {
-        id:3,
-        taskName:"Send an email",
-        description: "Mr.Thompson",
-        state: true,
-    }
-];
+const listViewRouter = require ("./list-view-router");
+const listeditRouter = require ("./list-edit-router");
+const taskList = require("./task-data");
 
 app.get("/tasks",(req,res)=>{
     res.setHeader ("Content-Type", "application/json");
     res.status(200).json(taskList);
 }); 
 
+app.use(express.json());
+app.use("/list-view", listViewRouter);
+app.use("/list-edit",listeditRouter);
+
+
 app.listen (port , () => {
     console.log("Servidor funcionando en:", port);
 });
+
+module.exports = taskList;
