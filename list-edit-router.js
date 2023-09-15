@@ -3,6 +3,32 @@ const listEditRouter = express.Router();
 const taskList = require("./task-data");
 
 
+function handleErrors(req, res, next){
+  if (req.method === "POST" && Object.keys(req.body).lengt === 0){
+    return res.status(400).json({ error: "El cuerpo de la solicitud no puede estar vacío"});
+  }
+
+  if (req.method === "POST"){
+    const {taskName, description, state} = req.body;
+    if (!taskName || !description || !state){
+      return res.status(400).json({ error: "Faltan atributos para crear la tarea"});
+    }
+  }
+
+  if (req.method === "PUT" &&  Object.keys(req.body).lengt === 0){
+    return res.status(400).json({ error: "El cuerpo de la solicitud no puede estar vacío" });
+  }
+
+  if (req.method === "PUT") {
+    const { taskName, description, state } = req.body;
+    if (!taskName && !description && !state) {
+      return res.status(400).json({ error: "No se proporcionó información válida para actualizar la tarea" });
+    }
+  }
+  next();
+}
+
+listEditRouter.use(handleErrors);
 
 listEditRouter.post("/create-task", (req, res) => {
     const {taskName, description, state} = req.body
