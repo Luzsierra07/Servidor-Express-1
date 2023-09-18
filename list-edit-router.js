@@ -1,7 +1,24 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const listEditRouter = express.Router();
 const taskList = require("./task-data");
 
+function authenticateToken (req,res,next) { 
+  const token = req.header("Authorization");
+  if(!token) return res.status(403).json({ error: "Acceso no autorizado"});
+
+  jwt.verify(token, jwtSecret, (err, user) => {
+    if (err) return res.status(403).json({error: "Token no válido"});
+    req.user = user;
+    next();
+  });
+}
+
+listEditRouter.get("/protected-route", authenticateToken, (req, res)=> {
+  const userId = req.user.id;
+  const username = req.user.username;
+  res.json({message:"Ruta protegida", userId,username});
+});
 
 function handleErrors(req, res, next){
   if (req.method === "POST" && Object.keys(req.body).lengt === 0){
