@@ -10,7 +10,7 @@ const user = require("./user-data");
 const jwtSecret = process.env.JWT_SECRET;
 
 app.all ("/*", (req, res, next) => {
-    const valideMethods =["GET", "POST", "PUT"];
+    const valideMethods =["GET", "POST", "PUT", "DELETE"];
     if (!valideMethods.includes(req.method)){
         return res.status(405).json({error:"Metodo no permitido"});
     }
